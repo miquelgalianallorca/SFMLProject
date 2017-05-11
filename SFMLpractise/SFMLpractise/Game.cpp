@@ -1,21 +1,26 @@
 #include "EngineIncludes.h"
 #include "Game.h"
-
+#include "MainMenuState.h"
 
 Game::Game(sf::RenderWindow* window) :
 	g_Window(*window)
 {
-
+	g_Ready = false;
+	g_State = new MainMenuState();
 }
 
 Game::~Game()
 {
-
+	delete g_State;
 }
 
 //Called by main before Run()
 void Game::Initialize() {
+	
+	//Initialize
+	//...
 
+	g_Ready = true;
 }
 
 //Main loop
@@ -32,7 +37,7 @@ void Game::Run() {
 		while (g_Window.pollEvent(event))
 		{
 			//"Close requested" event: we close the window
-			if (event.type == sf::Event::Closed || Input::IsKeyPressed(Input::KEY::KEY_ESC)) {
+			if (event.type == sf::Event::Closed || Input::IsKeyPressed(Input::KEY::KEY_ESC)) { //Input is included in Player
 				g_Window.close();
 				return;
 			}
@@ -43,17 +48,12 @@ void Game::Run() {
 		float frameTime = std::max(0.f, newTime - currentTime);
 		currentTime = newTime;
 
-		//// Update all items in the level
-		//if (!m_levelWasGenerated) {
-		//	
-		//	Update(frameTime);
-		//	// Draw all items in the level.
-		//	Draw(frameTime);
-		//}
-		//else
-		//{
-		//	m_levelWasGenerated = false;
-		//}
+		if (g_Ready) {
+			//Update all items
+			g_State->Update(frameTime);
+			//Draw all items
+			g_State->Draw(frameTime);
+		}
 	}
 
 }
