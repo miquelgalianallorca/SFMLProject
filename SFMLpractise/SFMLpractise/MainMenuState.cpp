@@ -3,8 +3,7 @@
 
 MainMenuState::MainMenuState()
 {
-	SetStateName(GAME_STATE::MAIN_MENU);
-	
+	SetStateName(GAME_STATE::MAIN_MENU);	
 }
 
 
@@ -12,14 +11,21 @@ MainMenuState::~MainMenuState()
 {
 }
 
-void MainMenuState::Update(float frameTime) {
+void MainMenuState::Update(sf::RenderWindow &window, float deltaTime) {
 
 }
 
-void MainMenuState::Draw(float frameTime) {
-
+void MainMenuState::Draw(sf::RenderWindow &window, float alphaInterp) {
+	
 }
 
 void MainMenuState::ChangeState(GAME_STATE state) {
 
+}
+
+void MainMenuState::SetupViews(sf::RenderWindow &window, sf::Vector2f screenCenter) {
+	//Initialize views
+	mainView = window.getDefaultView();
+	mainView.zoom(0.5f);
+	UIView = window.getDefaultView();
 }

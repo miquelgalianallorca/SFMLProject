@@ -1,11 +1,8 @@
 #pragma once
 
-#include "Player.h"
+#include "EngineIncludes.h"
 
-class GameState;
-
-static float const FPS = 60.0;						// Constant for fixed time - step loop. We'll lock it at 60fps.
-static float const MS_PER_STEP = 1.0f / FPS;		// Roughly (0.017) @ 60fps.
+class GameState; //Defined in GameState.h
 
 class Game
 {
@@ -17,7 +14,14 @@ public:
 	void Run();
 
 private:
+
+	void Update(sf::RenderWindow &window, float dt);
+	void Draw(sf::RenderWindow &window, float dt);
+
 	sf::RenderWindow& g_Window; //Reference to the window (created in main)
+	sf::Vector2f screenCenter;
+	sf::Vector2u screenSize;
+
 	sf::Clock g_Clock; //Used in Run loop
 
 	bool g_Ready;

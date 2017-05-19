@@ -12,7 +12,9 @@ public:
 		KEY_UP,
 		KEY_DOWN,
 		KEY_ATTACK,
-		KEY_ESC
+		KEY_ESC,
+		KEY_ADD,
+		KEY_SUBTRACT
 	};
 
 	//Check if a key is pressed
