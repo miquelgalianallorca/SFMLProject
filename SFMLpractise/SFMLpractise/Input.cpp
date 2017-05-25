@@ -30,8 +30,14 @@ bool Input::IsKeyPressed(KEY keycode) {
 		}
 		break;
 
-	case Input::KEY::KEY_ATTACK:
+	case Input::KEY::KEY_LCLICK:
 		if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Space) || sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))) {
+			return true;
+		}
+		break;
+
+	case Input::KEY::KEY_RCLICK:
+		if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Right)) {
 			return true;
 		}
 		break;

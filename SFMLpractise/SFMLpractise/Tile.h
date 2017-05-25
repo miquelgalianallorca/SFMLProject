@@ -11,8 +11,12 @@ public:
 
 	void Draw(sf::RenderWindow& window);
 
-	void MarkHover();
-	void UnmarkHover();
+	void MarkHover(); //Change color to hoverColor
+	void UnmarkHover(); //Change color from hoverColor to normal or selected
+
+	void MarkLeftClick(); //Change color to selectedColorL
+	void MarkRightClick(); //Change color to selectedColorR
+	void UnmarkClick(); //Change color to default color
 
 	sf::Vector2f GetPosition();
 
@@ -23,4 +27,9 @@ private:
 	sf::Vector2f tilePosition;
 	int tileSize;
 	sf::RectangleShape rect;
+
+	bool isSelectedL = false;
+	bool isSelectedR = false;
+	sf::Color selectedColorL = sf::Color::Magenta;
+	sf::Color selectedColorR = sf::Color::Yellow;
 };

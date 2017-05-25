@@ -43,12 +43,36 @@ void Tile::Draw(sf::RenderWindow &window) {
 	window.draw(rect);
 }
 
+//HOVER
 void Tile::MarkHover() {
 	rect.setFillColor(sf::Color::Red);
 }
 void Tile::UnmarkHover() {
+	if (isSelectedL)
+		rect.setFillColor(selectedColorL);
+	else if (isSelectedR)
+		rect.setFillColor(selectedColorR);
+	else
+		rect.setFillColor(tileFilledColor); 
+}
+
+
+//CLICK
+void Tile::MarkLeftClick() {
+	rect.setFillColor(selectedColorL);
+	isSelectedL = true;
+}
+void Tile::MarkRightClick() {
+	rect.setFillColor(sf::Color::Yellow);
+	isSelectedR = true;
+}
+void Tile::UnmarkClick() {
+	isSelectedL = false;
+	isSelectedR = false;
 	rect.setFillColor(tileFilledColor);
 }
+
+
 
 sf::Vector2f Tile::GetPosition() {
 	return tilePosition;

@@ -14,7 +14,6 @@ Character::Character(Tile &startTile):
 	posCharacter = rect.getPosition();
 }
 
-
 Character::~Character()
 {
 }

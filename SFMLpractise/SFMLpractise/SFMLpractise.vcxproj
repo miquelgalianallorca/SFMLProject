@@ -132,6 +132,7 @@
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainMenuState.cpp" />
+    <ClCompile Include="Path.cpp" />
     <ClCompile Include="PlayingState.cpp" />
     <ClCompile Include="Tile.cpp" />
   </ItemGroup>
@@ -143,6 +144,7 @@
     <ClInclude Include="Input.h" />
     <ClInclude Include="Level.h" />
     <ClInclude Include="MainMenuState.h" />
+    <ClInclude Include="Path.h" />
     <ClInclude Include="PlayingState.h" />
     <ClInclude Include="Tile.h" />
     <ClInclude Include="Util.h" />
