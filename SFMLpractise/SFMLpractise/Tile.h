@@ -18,6 +18,10 @@ public:
 	void MarkRightClick(); //Change color to selectedColorR
 	void UnmarkClick(); //Change color to default color
 
+	void MarkPath();
+	void UnmarkPath();
+	bool GetIsInPath();
+
 	sf::Vector2f GetPosition();
 
 private:
@@ -28,8 +32,12 @@ private:
 	int tileSize;
 	sf::RectangleShape rect;
 
+	//Selection
 	bool isSelectedL = false;
 	bool isSelectedR = false;
 	sf::Color selectedColorL = sf::Color::Magenta;
 	sf::Color selectedColorR = sf::Color::Yellow;
+
+	//Path
+	bool isInPath = false;
 };

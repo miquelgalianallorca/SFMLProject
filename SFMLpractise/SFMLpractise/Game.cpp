@@ -93,6 +93,8 @@ void Game::Update(sf::RenderWindow &window, float dt) {
 			g_Window.close();
 			return;
 		}
+
+
 	}
 
 	//Update game objects

@@ -1,7 +1,8 @@
+#include <iostream>
 #include "Level.h"
 #include "Character.h"
 #include "Input.h"
-#include "Path.h"
+#include "AStar.h"
 
 //TileSize
 static const int tileSize = 30;
@@ -31,6 +32,7 @@ Level::Level(int rows, int cols) :
 
 	//Selection
 	tileSelected = false;
+	destinationSelected = false;
 }
 
 
@@ -110,7 +112,10 @@ void Level::Hover(sf::Vector2f worldPos) {
 void Level::Select(Tile &hoveredTile) {
 	
 	//hoveredTile has been marked before in Level::Hover()
-		
+	
+	//Clear previous Path
+
+
 	//Click
 	if (Input::IsKeyPressed(Input::KEY::KEY_LCLICK)) {
 		
@@ -124,13 +129,24 @@ void Level::Select(Tile &hoveredTile) {
 		SelectTileOrigin(hoveredTile);
 
 		tileSelected = true;
+
 	}
 
 	if (Input::IsKeyPressed(Input::KEY::KEY_RCLICK)) {
+				
 		//select hovered tile as destination
 		if (tileSelected) {
+
+			//Unselect previous destination
+			if (destinationSelected) {
+				tiles[selectedTileDestination.x][selectedTileDestination.y].UnmarkClick();
+				destinationSelected = false;
+			}
+
 			selectedTileDestination = tileHoveredCoord;
 			SelectTileDestination(hoveredTile);
+
+			destinationSelected = true;
 		}
 	}
 
@@ -146,6 +162,33 @@ void Level::SelectTileDestination(Tile &tile) {
 
 	tile.MarkRightClick();
 
-	if (path != nullptr) delete path;
-	path = new Path(tiles, selectedTileOrigin, selectedTileDestination);
+	//Calculate Path
+	CalculatePath();
+}
+
+void Level::CalculatePath() {
+	
+	AStar::Generator generator;
+	
+	//Set 2d map size
+	generator.setWorldSize({ levelRows, levelCols });
+	//Settings
+	generator.setHeuristic(AStar::Heuristic::euclidean);
+	generator.setDiagonalMovement(false);
+	
+	//Path
+	AStar::CoordinateList path = generator.findPath({ selectedTileOrigin.x, selectedTileOrigin.y }, { selectedTileDestination.x, selectedTileDestination.y });
+	//Remove duplicates
+	//sort(path.begin(), path.end());
+	//path.erase(unique(path.begin(), path.end()), path.end());
+
+	//Explore path
+	for (auto& coordinate : path) {
+		std::cout << coordinate.x << " " << coordinate.y << "\n";
+
+		tiles[coordinate.x][coordinate.y].MarkPath();
+	}
+
+
+	
 }

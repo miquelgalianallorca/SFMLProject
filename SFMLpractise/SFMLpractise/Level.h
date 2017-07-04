@@ -4,7 +4,6 @@
 #include "Tile.h"
 
 class Character;
-class Path;
 
 class Level
 {
@@ -25,17 +24,17 @@ private:
 	bool HoveringValidTile(sf::RenderWindow &window, sf::Vector2f worldPos);
 	
 	//Selecting
-	bool tileSelected;
+	bool tileSelected, destinationSelected;
 	sf::Vector2i selectedTileOrigin, selectedTileDestination;
 
 	void Select(Tile &hoveredTile);
 	void SelectTileOrigin(Tile &tile);
 	void SelectTileDestination(Tile &tile);
 
+	//Path
+	void CalculatePath();
+
 	//Character
 	Character *character;
-
-	//Pathfinding
-	Path *path;
 };
 

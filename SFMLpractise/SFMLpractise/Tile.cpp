@@ -72,6 +72,18 @@ void Tile::UnmarkClick() {
 	rect.setFillColor(tileFilledColor);
 }
 
+//PATH
+void Tile::MarkPath() {
+	if (!isSelectedL && !isSelectedR) rect.setFillColor(sf::Color::White);
+	isInPath = true;
+}
+void Tile::UnmarkPath() {
+	if(!isSelectedL && !isSelectedR) rect.setFillColor(tileFilledColor);
+	isInPath = false;
+}
+bool Tile::GetIsInPath() {
+	return isInPath;
+}
 
 
 sf::Vector2f Tile::GetPosition() {
