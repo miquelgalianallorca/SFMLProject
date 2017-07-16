@@ -17,6 +17,11 @@ PlayingState::~PlayingState()
 	delete level;
 }
 
+void PlayingState::HandleEvent(sf::Event &event) {
+	//Handle events in Level
+	level->HandleEvent(event);
+}
+
 void PlayingState::Update(sf::RenderWindow &window, float deltaTime) {
 	//Update level
 	level->Update(window, deltaTime);

@@ -2,7 +2,6 @@
 #include "Level.h"
 #include "Character.h"
 #include "Input.h"
-#include "AStar.h"
 
 //TileSize
 static const int tileSize = 30;
@@ -38,6 +37,9 @@ Level::Level(int rows, int cols) :
 
 Level::~Level()
 {
+	hoveredTile = nullptr;
+	delete hoveredTile;
+
 	//Delete matrix
 	for (int i = 0; i < levelRows; i++) {
 		delete[] tiles[i];
@@ -46,6 +48,53 @@ Level::~Level()
 
 	//Delete character
 	delete character;
+}
+
+void Level::HandleEvent(sf::Event &event) {
+
+	//Mouse events
+	if (event.type == sf::Event::MouseButtonPressed) {
+
+		if (hoveredTile != nullptr) {
+
+			//Left click
+			if (event.mouseButton.button == sf::Mouse::Left) {
+				if (tileSelected) { //If tile previously selected undo selection of previous tile
+					tiles[selectedTileOrigin.x][selectedTileOrigin.y].UnmarkClick();
+					tiles[selectedTileDestination.x][selectedTileDestination.y].UnmarkClick();
+
+					CleanPath();
+				}
+
+				//Select hovered tile as origin
+				selectedTileOrigin = tileHoveredCoord;
+				SelectTileOrigin(hoveredTile);
+
+				tileSelected = true;
+
+			}
+
+			//Right click
+			else if (event.mouseButton.button == sf::Mouse::Right) {
+				//select hovered tile as destination
+				if (tileSelected) {
+
+					//Unselect previous destination
+					if (destinationSelected) {
+						tiles[selectedTileDestination.x][selectedTileDestination.y].UnmarkClick();
+						destinationSelected = false;
+					}
+
+					selectedTileDestination = tileHoveredCoord;
+					SelectTileDestination(hoveredTile);
+
+					destinationSelected = true;
+				}
+			}
+
+		}
+	}
+
 }
 
 void Level::Update(sf::RenderWindow &window, float deltaTime) {
@@ -102,65 +151,21 @@ void Level::Hover(sf::Vector2f worldPos) {
 	}
 
 	//Mark hovering
-	Tile &hoveredTile = tiles[tileHoveredCoord.x][tileHoveredCoord.y];
-	hoveredTile.MarkHover();
-
-	//Check selection
-	Select(hoveredTile);
-}
-
-void Level::Select(Tile &hoveredTile) {
-	
-	//hoveredTile has been marked before in Level::Hover()
-	
-	//Clear previous Path
-
-
-	//Click
-	if (Input::IsKeyPressed(Input::KEY::KEY_LCLICK)) {
-		
-		if (tileSelected) { //If tile previously selected undo selection of previous tile
-			tiles[selectedTileOrigin.x][selectedTileOrigin.y].UnmarkClick();
-			tiles[selectedTileDestination.x][selectedTileDestination.y].UnmarkClick();
-		}
-
-		//Select hovered tile as origin
-		selectedTileOrigin = tileHoveredCoord;
-		SelectTileOrigin(hoveredTile);
-
-		tileSelected = true;
-
-	}
-
-	if (Input::IsKeyPressed(Input::KEY::KEY_RCLICK)) {
-				
-		//select hovered tile as destination
-		if (tileSelected) {
-
-			//Unselect previous destination
-			if (destinationSelected) {
-				tiles[selectedTileDestination.x][selectedTileDestination.y].UnmarkClick();
-				destinationSelected = false;
-			}
-
-			selectedTileDestination = tileHoveredCoord;
-			SelectTileDestination(hoveredTile);
-
-			destinationSelected = true;
-		}
-	}
+	hoveredTile = &tiles[tileHoveredCoord.x][tileHoveredCoord.y];
+	hoveredTile->MarkHover();
 
 }
 
-void Level::SelectTileOrigin(Tile &tile) {
-	
-	tile.MarkLeftClick();
+
+void Level::SelectTileOrigin(Tile *tile) {
+
+	tile->MarkLeftClick();
 
 }
 
-void Level::SelectTileDestination(Tile &tile) {
+void Level::SelectTileDestination(Tile *tile) {
 
-	tile.MarkRightClick();
+	tile->MarkRightClick();
 
 	//Calculate Path
 	CalculatePath();
@@ -177,18 +182,24 @@ void Level::CalculatePath() {
 	generator.setDiagonalMovement(false);
 	
 	//Path
-	AStar::CoordinateList path = generator.findPath({ selectedTileOrigin.x, selectedTileOrigin.y }, { selectedTileDestination.x, selectedTileDestination.y });
-	//Remove duplicates
-	//sort(path.begin(), path.end());
-	//path.erase(unique(path.begin(), path.end()), path.end());
-
-	//Explore path
+	path = generator.findPath({ selectedTileOrigin.x, selectedTileOrigin.y }, { selectedTileDestination.x, selectedTileDestination.y });
+	
+	//Mark Path
 	for (auto& coordinate : path) {
-		std::cout << coordinate.x << " " << coordinate.y << "\n";
-
+		//std::cout << "MARKING: " << coordinate.x << " " << coordinate.y << "\n";
 		tiles[coordinate.x][coordinate.y].MarkPath();
 	}
-
-
 	
+}
+
+void Level::CleanPath() {
+	
+	if (!path.empty()) {
+		for (auto& coordinate : path) {
+			//std::cout << "CLEANING: " << coordinate.x << " " << coordinate.y << "\n";
+			tiles[coordinate.x][coordinate.y].UnmarkPath();
+		}
+		path.clear();
+	}
+
 }

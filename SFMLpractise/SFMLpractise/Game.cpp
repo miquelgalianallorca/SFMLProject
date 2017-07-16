@@ -94,7 +94,8 @@ void Game::Update(sf::RenderWindow &window, float dt) {
 			return;
 		}
 
-
+		//Handle other events in states
+		g_State->HandleEvent(event);
 	}
 
 	//Update game objects

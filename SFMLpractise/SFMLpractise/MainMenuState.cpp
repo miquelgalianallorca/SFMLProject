@@ -11,6 +11,10 @@ MainMenuState::~MainMenuState()
 {
 }
 
+void MainMenuState::HandleEvent(sf::Event &event) {
+
+}
+
 void MainMenuState::Update(sf::RenderWindow &window, float deltaTime) {
 
 }

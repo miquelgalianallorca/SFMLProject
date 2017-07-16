@@ -9,6 +9,7 @@ public:
 	PlayingState();
 	~PlayingState();
 
+	void HandleEvent(sf::Event &event);
 	void Update(sf::RenderWindow &window, float deltaTime);
 	void Draw(sf::RenderWindow &window, float alphaInterp);
 

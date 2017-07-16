@@ -14,6 +14,7 @@ public:
 	GameState();
 	virtual ~GameState();
 
+	virtual void HandleEvent(sf::Event &event) = 0;
 	virtual void Update(sf::RenderWindow &window, float deltaTime) = 0;
 	virtual void Draw(sf::RenderWindow &window, float alphaInterp) = 0;
 
