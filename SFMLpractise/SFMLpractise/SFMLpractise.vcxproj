@@ -134,6 +134,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainMenuState.cpp" />
     <ClCompile Include="PlayingState.cpp" />
+    <ClCompile Include="ResourceManager.cpp" />
     <ClCompile Include="Tile.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -146,6 +147,7 @@
     <ClInclude Include="Level.h" />
     <ClInclude Include="MainMenuState.h" />
     <ClInclude Include="PlayingState.h" />
+    <ClInclude Include="ResourceManager.h" />
     <ClInclude Include="Tile.h" />
     <ClInclude Include="Util.h" />
   </ItemGroup>

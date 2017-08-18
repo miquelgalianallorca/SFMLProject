@@ -19,7 +19,8 @@ public:
 private:
 	int levelRows, levelCols;
 	Tile **tiles;
-
+	void InitMatrix();
+	
 	//Hover
 	Tile *hoveredTile;
 	sf::Vector2i tileHoveredCoord, prevTileHoveredCoord;

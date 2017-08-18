@@ -10,18 +10,8 @@ Level::Level(int rows, int cols) :
 	levelRows(rows),
 	levelCols(cols)
 {
-	//Create matrix
-	tiles = new Tile*[levelRows];
-	for (int i = 0; i < levelCols; i++) {
-		tiles[i] = new Tile[levelCols];
-	}
 	//Initialize matrix
-	for (int i = 0; i < levelRows; i++) {
-		for (int j = 0; j < levelCols; j++) {
-			sf::Vector2f pos((float)tileSize * i, (float)tileSize * j);
-			tiles[i][j] = Tile(sf::Color::Blue, sf::Color::White, pos, tileSize);
-		}
-	}
+	InitMatrix();
 
 	//Initialize hover
 	prevTileHoveredCoord = sf::Vector2i(0, 0);
@@ -34,6 +24,22 @@ Level::Level(int rows, int cols) :
 	destinationSelected = false;
 }
 
+void Level::InitMatrix() {
+	
+	//Create matrix
+	tiles = new Tile*[levelRows];
+	for (int i = 0; i < levelCols; i++) {
+		tiles[i] = new Tile[levelCols];
+	}
+	
+	//Initialize matrix
+	for (int i = 0; i < levelRows; i++) {
+		for (int j = 0; j < levelCols; j++) {
+			sf::Vector2f pos((float)tileSize * i, (float)tileSize * j);
+			tiles[i][j] = Tile(sf::Color::Blue, sf::Color::White, pos, tileSize);
+		}
+	}
+}
 
 Level::~Level()
 {
@@ -49,6 +55,7 @@ Level::~Level()
 	//Delete character
 	delete character;
 }
+
 
 void Level::HandleEvent(sf::Event &event) {
 
