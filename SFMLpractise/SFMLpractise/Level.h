@@ -1,8 +1,8 @@
 #pragma once
 
-#include "EngineIncludes.h"
-#include "Tile.h"
 #include "AStar.h"
+#include "Input.h"
+#include "GroundTile.h"
 
 class Character;
 
@@ -20,6 +20,11 @@ private:
 	int levelRows, levelCols;
 	Tile **tiles;
 	void InitMatrix();
+
+	//TileType Chance
+	void CreateTile(int i, int j);
+	float waterChance = 0.05f;
+	float rockChance = 0.05f;
 	
 	//Hover
 	Tile *hoveredTile;

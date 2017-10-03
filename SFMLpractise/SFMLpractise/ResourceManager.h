@@ -1,8 +1,6 @@
 #pragma once
 #include "EngineIncludes.h"
 
-enum class GraphicsID{ Ground, Water, Floor, Rock };
-
 class ResourceManager
 {
 public:
@@ -24,6 +22,6 @@ namespace RManager {
 
 	ResourceManager resourceManager;
 
-	auto GetResource(GraphicsID &graphicsID);
+	std::shared_ptr<sf::Sprite> GetResource(GraphicsID &graphicsID);
 
 }

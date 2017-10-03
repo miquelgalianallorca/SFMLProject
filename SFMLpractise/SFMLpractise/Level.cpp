@@ -1,7 +1,5 @@
-#include <iostream>
 #include "Level.h"
 #include "Character.h"
-#include "Input.h"
 
 //TileSize
 static const int tileSize = 30;
@@ -35,10 +33,31 @@ void Level::InitMatrix() {
 	//Initialize matrix
 	for (int i = 0; i < levelRows; i++) {
 		for (int j = 0; j < levelCols; j++) {
-			sf::Vector2f pos((float)tileSize * i, (float)tileSize * j);
-			tiles[i][j] = Tile(sf::Color::Blue, sf::Color::White, pos, tileSize);
+			CreateTile(i, j);
 		}
 	}
+}
+
+void Level::CreateTile(int i, int j) {
+	sf::Vector2f pos((float)tileSize * i, (float)tileSize * j);
+	tiles[i][j] = Tile(sf::Color::Blue, sf::Color::White, pos, tileSize);
+
+	//Random float between 0.0 and 1.0
+	//float r = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
+	//if (r < waterChance) {
+	//	tiles[i][j] = Tile(sf::Color::Blue, sf::Color::White, pos, tileSize);
+	//	//tiles[i][j] = WaterTile();
+	//}
+	//else {
+	//	if (r < waterChance + rockChance) {
+	//		tiles[i][j] = Tile(sf::Color::Blue, sf::Color::White, pos, tileSize);
+	//		//tiles[i][j] = RockTile();
+	//	}
+	//	else {
+	//		tiles[i][j] = GroundTile(sf::Color::Blue, sf::Color::White, pos, tileSize);
+	//	}
+	//}
+
 }
 
 Level::~Level()

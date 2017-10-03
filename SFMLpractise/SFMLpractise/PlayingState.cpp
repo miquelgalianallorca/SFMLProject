@@ -1,6 +1,4 @@
 #include "PlayingState.h"
-#include "Level.h"
-#include "Input.h"
 
 
 PlayingState::PlayingState()

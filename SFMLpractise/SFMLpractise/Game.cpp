@@ -1,7 +1,4 @@
 #include "Game.h"
-#include "GameState.h"
-#include "PlayingState.h"
-#include "Input.h"
 
 Game::Game(sf::RenderWindow* window) :
 	g_Window(*window)

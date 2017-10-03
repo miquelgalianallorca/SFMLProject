@@ -2,12 +2,6 @@
 
 #include "EngineIncludes.h"
 
-enum class GAME_STATE {
-	MAIN_MENU,
-	PLAYING,
-	GAME_OVER
-};
-
 class GameState
 {
 public:

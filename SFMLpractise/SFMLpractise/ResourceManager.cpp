@@ -42,7 +42,7 @@ auto ResourceManager::GetResource(GraphicsID &graphicsID) {
 }
 
 namespace RManager {
-	auto GetResource(GraphicsID &graphicsID) {
+	std::shared_ptr<sf::Sprite> GetResource(GraphicsID &graphicsID) {
 		return RManager::resourceManager.GetResource(graphicsID);
 	}
 }
