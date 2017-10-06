@@ -26,7 +26,7 @@ void Level::InitMatrix() {
 	
 	//Create matrix
 	tiles = new Tile*[levelRows];
-	for (int i = 0; i < levelCols; i++) {
+	for (int i = 0; i < levelRows; i++) {
 		tiles[i] = new Tile[levelCols];
 	}
 	
@@ -109,6 +109,8 @@ void Level::HandleEvent(sf::Event &event) {
 					if (destinationSelected) {
 						tiles[selectedTileDestination.x][selectedTileDestination.y].UnmarkClick();
 						destinationSelected = false;
+
+						CleanPath(); //Clean previous path
 					}
 
 					selectedTileDestination = tileHoveredCoord;
@@ -228,4 +230,9 @@ void Level::CleanPath() {
 		path.clear();
 	}
 
+}
+
+float Level::GetWorldLimit(bool horizontal) {
+	if (horizontal) return levelRows * tileSize; //Horizontal limit
+	else return levelCols * tileSize; //Vertical limit
 }

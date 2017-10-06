@@ -1,2 +1,19 @@
-﻿  Level.cpp
+﻿  Tile.cpp
+  ResourceManager.cpp
+  PlayingState.cpp
+c:\users\usuario\documents\github\sfmlproject\sfmlpractise\sfmlpractise\playingstate.cpp(48): warning C4244: 'argument': conversion from 'const float' to 'int', possible loss of data
+c:\users\usuario\documents\github\sfmlproject\sfmlpractise\sfmlpractise\playingstate.cpp(61): warning C4244: 'argument': conversion from 'const float' to 'int', possible loss of data
+  MainMenuState.cpp
+  main.cpp
+  Level.cpp
+c:\users\usuario\documents\github\sfmlproject\sfmlpractise\sfmlpractise\level.cpp(236): warning C4244: 'return': conversion from 'int' to 'float', possible loss of data
+c:\users\usuario\documents\github\sfmlproject\sfmlpractise\sfmlpractise\level.cpp(237): warning C4244: 'return': conversion from 'int' to 'float', possible loss of data
+  Input.cpp
+  GroundTile.cpp
+  GameState.cpp
+  Game.cpp
+  EngineIncludes.cpp
+  Character.cpp
+  AStar.cpp
+  Generating Code...
   SFMLpractise.vcxproj -> C:\Users\Usuario\Documents\GitHub\SFMLProject\SFMLpractise\Debug\SFMLpractise.exe

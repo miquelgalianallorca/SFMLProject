@@ -4,7 +4,7 @@
 PlayingState::PlayingState()
 {
 	SetStateName(GAME_STATE::PLAYING);
-	level = new Level(30, 30);
+	level = new Level(50, 30);
 
 	keyClockCounter = 0.f;
 	keyClockDelay = 0.3f;
@@ -24,33 +24,43 @@ void PlayingState::Update(sf::RenderWindow &window, float deltaTime) {
 	//Update level
 	level->Update(window, deltaTime);
 	//Update view
-	UpdateView(deltaTime);
+	UpdateView(window, deltaTime);
 }
 
 
-void PlayingState::UpdateView(float deltaTime) {
+void PlayingState::UpdateView(sf::RenderWindow &window, float deltaTime) {
 	//Zoom view
 	//ZoomView(deltaTime);
 	
 	//Move view
-	MoveView(deltaTime);
+	MoveView(window, deltaTime);
 }
 
-void PlayingState::MoveView(float deltaTime) {
+void PlayingState::MoveView(sf::RenderWindow &window, float deltaTime) {
 	
-	prevPosView = mainView.getCenter();
+	prevPosView = mainView.getCenter(); //For interpolation
+	
+	//World limits
+	float worldLimitH = level->GetWorldLimit(true);
+	float worldLimitV = level->GetWorldLimit(false);
 
 	if (Input::IsKeyPressed(Input::KEY::KEY_RIGHT)) {
-		posView.x += viewMoveSpeed * deltaTime;
+		float viewLimit = window.mapPixelToCoords(sf::Vector2i(mainView.getSize().x, 0)).x;
+		if(viewLimit < worldLimitH)
+			posView.x += viewMoveSpeed * deltaTime;
 	}
 	else if (Input::IsKeyPressed(Input::KEY::KEY_LEFT)) {
-		posView.x -= viewMoveSpeed * deltaTime;
+		if(window.mapPixelToCoords(sf::Vector2i(0,0)).x > 0)
+			posView.x -= viewMoveSpeed * deltaTime;
 	}
 	else if (Input::IsKeyPressed(Input::KEY::KEY_UP)) {
-		posView.y -= viewMoveSpeed * deltaTime;
+		if(window.mapPixelToCoords(sf::Vector2i(0,0)).y > 0)
+			posView.y -= viewMoveSpeed * deltaTime;
 	}
 	else if (Input::IsKeyPressed(Input::KEY::KEY_DOWN)) {
-		posView.y += viewMoveSpeed * deltaTime;
+		float viewLimit = window.mapPixelToCoords(sf::Vector2i(0, mainView.getSize().y)).y;
+		if(viewLimit < worldLimitV)
+			posView.y += viewMoveSpeed * deltaTime;
 	}
 }
 

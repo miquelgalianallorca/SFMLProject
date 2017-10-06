@@ -16,6 +16,9 @@ public:
 	void Update(sf::RenderWindow &window, float deltaTime);
 	void Draw(sf::RenderWindow &window, float alphaInterp);
 
+	//Getters for world limits
+	float GetWorldLimit(bool horizontal);
+
 private:
 	int levelRows, levelCols;
 	Tile **tiles;

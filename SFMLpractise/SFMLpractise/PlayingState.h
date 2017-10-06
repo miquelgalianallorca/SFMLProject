@@ -17,8 +17,8 @@ public:
 	virtual void SetupViews(sf::RenderWindow &window, sf::Vector2f screenCenter);
 
 private:
-	void UpdateView(float deltaTime);
-	void MoveView(float deltaTime);
+	void UpdateView(sf::RenderWindow &window, float deltaTime);
+	void MoveView(sf::RenderWindow &window, float deltaTime);
 	void ZoomView(float deltaTime);
 
 	//Zoom

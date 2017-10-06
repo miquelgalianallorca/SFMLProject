@@ -85,6 +85,8 @@ void Game::Update(sf::RenderWindow &window, float dt) {
 	sf::Event event;
 	while (g_Window.pollEvent(event))
 	{
+		//std::cout << "FPS: " << 1/dt << std::endl;
+
 		//"Close requested" event: we close the window
 		if (event.type == sf::Event::Closed || Input::IsKeyPressed(Input::KEY::KEY_ESC)) { //Input is included in Player
 			g_Window.close();
@@ -102,7 +104,7 @@ void Game::Update(sf::RenderWindow &window, float dt) {
 }
 
 void Game::Draw(sf::RenderWindow &window, const float alphaInterp) {
-
+	
 	g_State->Draw(window, alphaInterp);
 
 }
